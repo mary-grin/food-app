@@ -11,12 +11,22 @@ interface MealItemFormProps {
 const MealItemForm: FC<MealItemFormProps> = ({meal}) => {
     const cart = useContext(cartContext);
 
-    const input = useRef(0);
+    const amountInput = useRef<HTMLInputElement>(null)
+
+    const submitForm = () => {
+        const amount = amountInput.current ? +amountInput.current.value : 0;
+        if (amount < 1) {
+            return
+        }
+
+        cart.addItem({...meal, amount})
+    }
 
     return (
         <form className={classes.form}>
             <Input
-                lable="Amount"
+                label="Amount"
+                ref={amountInput}
                 input={{
                     id: 'amount' + meal.id,
                     type: 'number',
@@ -26,7 +36,7 @@ const MealItemForm: FC<MealItemFormProps> = ({meal}) => {
                     defaultValue: 1
                 }
             }/>
-            <button type="button" onClick={() => cart.addItem({...meal, amount: 0})}>+ Add</button>
+            <button onClick={submitForm} type="button">+ Add</button>
         </form>
     )
 }

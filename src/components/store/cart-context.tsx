@@ -4,15 +4,15 @@ import {Action, MealItems} from "./CartProvider";
 interface CartContext {
     items: MealItems[],
     totalAmount: number,
-    addItem: (item: Action<MealItems>) => void,
-    removeItem: (id: Action<string>) => void
+    addItem: (item: MealItems) => void,
+    removeItem: (id: string) => void
 }
 
 const CartContext: React.Context<CartContext> = React.createContext<CartContext>({
     items: [],
     totalAmount: 0,
-    addItem: (item: Action<MealItems>) => {},
-    removeItem: (id: Action<string>) => {}
+    addItem: (item: MealItems) => {},
+    removeItem: (id: string) => {}
 })
 
 export default CartContext;
